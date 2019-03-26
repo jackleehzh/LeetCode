@@ -25,3 +25,16 @@ int numJewelsInStones(char* J, char* S) {
     
     return total;
 }
+
+char* toLowerCase(char* str) {
+    char * s = str;
+    
+    while(*s){
+        if(*s <= 'Z' && *s >= 'A'){
+            *s = *s + 32;
+        }
+        s++;
+    }
+    
+    return str;
+}
