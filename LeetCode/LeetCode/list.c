@@ -20,6 +20,7 @@
 struct ListNode* create(int a[], int n){
     struct ListNode *L = NULL, *p = NULL, *node;
     int i;
+    
     for (i = 0; i < n; i++) {
         node = (struct ListNode *)malloc(sizeof(struct ListNode));
         if(L == NULL) {
@@ -31,44 +32,41 @@ struct ListNode* create(int a[], int n){
         node->val = a[i];
         node->next = NULL;
     }
+    
     return L;
 }
 
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
-    struct ListNode *L = NULL, *cL, *l11, *l22;
+    struct ListNode *L = NULL, *curr = NULL, *p, *q;
     struct ListNode *node;
     int a = 0;
     
-    l11 = l1;
-    l22 = l2;
-    while(l11 != NULL || l22 != NULL || a != 0){
+    p = l1;
+    q = l2;
+    while(p != NULL || q != NULL || a != 0){
         node = (struct ListNode *)malloc(sizeof(struct ListNode));
         node->next = NULL;
         
         if(L == NULL){
             L = node;
         }else{
-            cL->next = node;
+            curr->next = node;
             
         }
-        cL = node;
+        curr = node;
+        curr->val = a;
         
-        if(l11 != NULL && l22 != NULL){
-            cL->val = l11->val + l22->val + a;
-            l11 = l11->next;
-            l22 = l22->next;
-        }else if(l11 != NULL){
-            cL->val = l11->val + a;
-            l11 = l11->next;
-        }else if(l22 != NULL){
-            cL->val = l22->val + a;
-            l22 = l22->next;
-        }else{
-            cL->val = a;
+        if(p != NULL){
+            curr->val += p->val;
+            p = p->next;
+        }
+        if(q != NULL){
+            curr->val += q->val;
+            q = q->next;
         }
         
-        if(cL->val > 9){
-            cL->val = cL->val - 10;
+        if(curr->val > 9){
+            curr->val = curr->val - 10;
             a = 1;
         }else{
             a = 0;
