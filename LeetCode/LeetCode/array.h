@@ -10,5 +10,6 @@
 #define array_h
 
 #include <stdio.h>
+#include "tool.h"
 int* sortedSquares(int* A, int ASize, int* returnSize);
 #endif /* array_h */
