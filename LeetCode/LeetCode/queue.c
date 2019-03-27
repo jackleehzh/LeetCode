@@ -8,6 +8,8 @@
 
 #include "queue.h"
 
+//队列是尾部插入，头部删除
+
 MyCircularQueue* myCircularQueueCreate(int k) {
     MyCircularQueue* q = (MyCircularQueue*)malloc(sizeof(MyCircularQueue));
     
@@ -31,7 +33,7 @@ bool myCircularQueueIsEmpty(MyCircularQueue* obj) {
 
 /** Checks whether the circular queue is full or not. */
 bool myCircularQueueIsFull(MyCircularQueue* obj) {
-    if((obj->head + 1) % obj->len == obj->tail) return true;
+    if((obj->tail + 1) % obj->len == obj->head) return true;
     return false;
 }
 
@@ -39,8 +41,8 @@ bool myCircularQueueIsFull(MyCircularQueue* obj) {
 bool myCircularQueueEnQueue(MyCircularQueue* obj, int value) {
     if(myCircularQueueIsFull(obj)) return false;
     
-    obj->queue[obj->head] = value;
-    obj->head = (obj->head + 1) % obj->len;
+    obj->queue[obj->tail] = value;
+    obj->tail = (obj->tail + 1) % obj->len;
     
     return true;
 }
@@ -48,20 +50,20 @@ bool myCircularQueueEnQueue(MyCircularQueue* obj, int value) {
 /** Delete an element from the circular queue. Return true if the operation is successful. */
 bool myCircularQueueDeQueue(MyCircularQueue* obj) {
     if(myCircularQueueIsEmpty(obj)) return false;
-    obj->tail = (obj->tail + 1) % obj->len;
+    obj->head = (obj->head + 1) % obj->len;
     return true;
 }
 
 /** Get the front item from the queue. */
 int myCircularQueueFront(MyCircularQueue* obj) {
     if(myCircularQueueIsEmpty(obj)) return -1;
-    return obj->queue[obj->tail];
+    return obj->queue[obj->head];
 }
 
 /** Get the last item from the queue. */
 int myCircularQueueRear(MyCircularQueue* obj) {
     if(myCircularQueueIsEmpty(obj)) return -1;
-    return obj->queue[(obj->head  + obj->len - 1) % obj->len];
+    return obj->queue[(obj->tail  + obj->len - 1) % obj->len];
 }
 
 void myCircularQueueFree(MyCircularQueue* obj) {
